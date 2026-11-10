@@ -79,6 +79,12 @@ This is the part that surprises many developers. Astro lets you use React compon
 
 This is a good example of choosing the right tool for each part of the page rather than picking one tool for everything. It's also why "Astro vs React" is not really a fair fight. Astro can be the structure, and React can be one of the tools inside it.
 
+## What I Chose
+
+When I set up my own portfolio and blog, the decision was easier than I expected. I didn’t need user accounts, a dashboard, or a complicated data layer. I needed a place to show my work and publish writing without fighting my tools. Astro fit that well.
+
+The workflow is what sold me. I write each post as a Markdown file, add a few lines of metadata at the top for the title and date, save it, and it renders as a clean, readable page. There’s no content management system to log into and no database to maintain. My writing lives in the same project as my code, so it’s easy to track and edit.
+
 ## A Quick Decision Guide
 
 Here's a practical way to choose for a new project:
