@@ -1,16 +1,53 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Portfolio">
+    <header>
+        <h1>Deepkumar Patel</h1>
+        <p class="lead">
+            I design distributed systems and train models that run on them.
+        </p>
+    </header>
+
+    <section>
+        <h2>Writing</h2>
+        <ul>
+            <li class="label">
+                <a href="/blog">read my blogs</a>
+            </li>
+        </ul>
+    </section>
+</BaseLayout>
+
+<style>
+    header h1 {
+        margin-top: 0;
+    }
+
+    h2 {
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: var(--space-1);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li + li {
+        border-top: 1px solid var(--rule);
+    }
+
+    li a {
+        display: block;
+        padding: var(--space-1) 0;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+</style>

@@ -1,0 +1,147 @@
+/* Drafting vellum: Newsreader + JetBrains Mono */
+
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  /* Palette */
+  --paper:      #F1EDE4;
+  --ink:        #2A2A33;
+  --ink-muted:  #6A6760;
+  --rule:       #CFC8B8;
+  --ochre:      #B97A12;  /* decorative only: large shapes, diagram fills */
+  --ochre-deep: #8F5B06;  /* links, buttons, small text */
+  --oxblood:    #7A2E2E;  /* secondary accent: hover, tags, key callouts */
+
+  /* Fonts */
+  --font-text: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale (fluid) */
+  --text-sm:   0.875rem;
+  --text-base: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem); /* ~17 to 19px */
+  --text-lg:   clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-h3:   clamp(1.5rem, 1.25rem + 1.2vw, 2rem);
+  --text-h2:   clamp(2rem, 1.5rem + 2.2vw, 2.75rem);
+  --text-h1:   clamp(2.75rem, 2rem + 4vw, 4.5rem);
+
+  /* Spacing and layout */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --measure: 66ch;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-family: var(--font-text);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: var(--space-4) 0 var(--space-2);
+}
+h1 { font-size: var(--text-h1); letter-spacing: -0.025em; line-height: 1.02; }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); line-height: 1.2; }
+
+p { margin: 0 0 var(--space-2); max-width: var(--measure); }
+.lead { font-size: var(--text-lg); line-height: 1.5; }
+
+em { font-style: italic; }
+
+/* Links */
+a {
+  color: var(--ochre-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+a:hover { color: var(--oxblood); }
+a:focus-visible {
+  outline: 2px solid var(--oxblood);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Mono: labels, tags, metadata, code */
+.label, .tag, time, code, pre, kbd {
+  font-family: var(--font-mono);
+}
+.label {
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.tag {
+  display: inline-block;
+  font-size: 0.8125rem;
+  padding: 0.15em 0.6em;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--oxblood);
+}
+code {
+  font-size: 0.88em;
+  padding: 0.1em 0.35em;
+  background: rgba(42, 42, 51, 0.06);
+  border-radius: 3px;
+}
+pre {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: var(--space-2);
+  overflow-x: auto;
+  background: rgba(42, 42, 51, 0.05);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+pre code { padding: 0; background: none; }
+
+/* Rules and borders */
+hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-4) 0; }
+
+/* Primary button: ochre-deep fill, paper text (about 4.9:1) */
+.button {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: 0.7em 1.2em;
+  background: var(--ochre-deep);
+  color: var(--paper);
+  border-radius: 3px;
+  text-decoration: none;
+}
+.button:hover { background: var(--oxblood); color: var(--paper); }
+
+/* Optional drafting-grid background for hero sections */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-color: var(--paper);
+}
+
+/* Selection */
+::selection { background: var(--ochre); color: var(--paper); }
+
+@media (prefers-reduced-motion: no-preference) {
+  a, .button { transition: color 0.15s ease, background-color 0.15s ease; }
+}

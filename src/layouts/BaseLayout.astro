@@ -1,0 +1,40 @@
+---
+import "../styles/theme.css";
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+        {description && <meta name="description" content={description} />}
+    </head>
+    <body>
+        <main class="container">
+            <slot />
+        </main>
+    </body>
+</html>
+
+<style is:global>
+    .container {
+        width: 100%;
+        max-width: 56rem;
+        margin: 0 auto;
+        padding: var(--space-5) var(--space-3);
+    }
+
+    @media (max-width: 40rem) {
+        .container {
+            padding: var(--space-4) var(--space-2);
+        }
+    }
+</style>

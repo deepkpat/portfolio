@@ -1,0 +1,183 @@
+---
+import "katex/dist/katex.min.css";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+    title: string;
+    description?: string;
+    date?: Date;
+}
+
+const { title, description, date } = Astro.props;
+
+const formattedDate = date?.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+---
+
+<BaseLayout title={`${title} — Deepkumar Patel`} description={description}>
+    <article>
+        <header class="post-header">
+            <p class="label">Writing</p>
+            <h1>{title}</h1>
+            {date && <time datetime={date.toISOString()}>{formattedDate}</time>}
+            {description && <p class="lead">{description}</p>}
+        </header>
+
+        <div class="prose">
+            <slot />
+        </div>
+
+        <footer class="post-footer">
+            <a href="/blog">Back to writing</a>
+        </footer>
+    </article>
+</BaseLayout>
+
+<script>
+    import mermaid from "mermaid";
+
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: "base",
+        fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+        themeVariables: {
+            background: "#F1EDE4",
+            primaryColor: "#F1EDE4",
+            primaryTextColor: "#2A2A33",
+            primaryBorderColor: "#8F5B06",
+            lineColor: "#6A6760",
+            secondaryColor: "#B97A12",
+            tertiaryColor: "#CFC8B8",
+            mainBkg: "#F1EDE4",
+            nodeBorder: "#8F5B06",
+            clusterBkg: "#F1EDE4",
+            clusterBorder: "#CFC8B8",
+            titleColor: "#2A2A33",
+            edgeLabelBackground: "#F1EDE4",
+        },
+    });
+
+    const blocks = document.querySelectorAll("pre > code.language-mermaid");
+
+    for (const block of blocks) {
+        const diagram = document.createElement("div");
+        diagram.className = "mermaid";
+        diagram.textContent = block.textContent ?? "";
+        block.parentElement?.replaceWith(diagram);
+    }
+
+    await mermaid.run({ querySelector: ".mermaid" });
+</script>
+
+<style>
+    .post-header {
+        margin-bottom: var(--space-5);
+    }
+
+    .post-header h1 {
+        margin: 0 0 var(--space-2);
+    }
+
+    .post-header .label {
+        margin: 0 0 var(--space-2);
+    }
+
+    .post-header time {
+        color: var(--ink-muted);
+        font-size: var(--text-sm);
+    }
+
+    .post-header .lead {
+        margin: var(--space-2) 0 0;
+    }
+
+    .post-footer {
+        margin-top: var(--space-5);
+        padding-top: var(--space-2);
+        border-top: 1px solid var(--rule);
+    }
+</style>
+
+<style is:global>
+    .prose > :first-child {
+        margin-top: 0;
+    }
+
+    .prose p,
+    .prose ul,
+    .prose ol,
+    .prose blockquote {
+        max-width: var(--measure);
+    }
+
+    .prose ul,
+    .prose ol {
+        padding-left: 1.25rem;
+    }
+
+    .prose li {
+        margin-bottom: var(--space-1);
+    }
+
+    .prose blockquote {
+        margin: var(--space-4) 0;
+        padding-left: var(--space-2);
+        border-left: 2px solid var(--ochre);
+        color: var(--ink-muted);
+        font-style: italic;
+    }
+
+    .prose blockquote p {
+        margin-bottom: 0;
+    }
+
+    .prose img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .prose table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: var(--space-4) 0;
+        font-size: var(--text-sm);
+    }
+
+    .prose th,
+    .prose td {
+        padding: var(--space-1) var(--space-2);
+        border-bottom: 1px solid var(--rule);
+        text-align: left;
+    }
+
+    .prose th {
+        font-family: var(--font-mono);
+        font-weight: 500;
+    }
+
+    .prose .katex-display {
+        margin: var(--space-4) 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: var(--space-1) 0;
+    }
+
+    .prose .mermaid {
+        display: flex;
+        justify-content: center;
+        margin: var(--space-4) 0;
+        padding: var(--space-2);
+        overflow-x: auto;
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        background: var(--paper);
+    }
+
+    .prose .mermaid svg {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
