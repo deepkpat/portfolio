@@ -1,0 +1,73 @@
+---
+interface Props {
+    title: string;
+    summary?: string;
+    date: Date;
+    href: string;
+}
+
+const { title, summary, date, href } = Astro.props;
+
+const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+});
+---
+
+<li class="post-row">
+    <a class="post-link" href={href}>
+        <time datetime={date.toISOString()}>{formattedDate}</time>
+        <span class="post-body">
+            <h3>{title}</h3>
+            {summary && <p>{summary}</p>}
+        </span>
+    </a>
+</li>
+
+<style>
+    .post-row {
+        border-bottom: 1px solid var(--rule);
+    }
+
+    .post-link {
+        display: grid;
+        grid-template-columns: 9rem 1fr;
+        gap: var(--space-2);
+        padding: var(--space-3) 0;
+        color: var(--ink);
+        text-decoration: none;
+    }
+
+    .post-link:hover {
+        color: var(--ink);
+    }
+
+    .post-link time {
+        color: var(--ink-muted);
+        font-size: var(--text-sm);
+    }
+
+    .post-body h3 {
+        margin: 0;
+        font-size: var(--text-h3);
+    }
+
+    .post-link:hover h3 {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+
+    .post-body p {
+        margin: var(--space-1) 0 0;
+        color: var(--ink-muted);
+        max-width: var(--measure);
+    }
+
+    @media (max-width: 40rem) {
+        .post-link {
+            grid-template-columns: 1fr;
+            gap: var(--space-1);
+        }
+    }
+</style>

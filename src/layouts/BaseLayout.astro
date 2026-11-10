@@ -21,13 +21,18 @@ const { title, description } = Astro.props;
         <main class="container">
             <slot />
         </main>
+        <slot name="footer" />
     </body>
 </html>
 
 <style is:global>
+    body {
+        overflow-x: clip;
+    }
+
     .container {
         width: 100%;
-        max-width: 56rem;
+        max-width: 64rem;
         margin: 0 auto;
         padding: var(--space-5) var(--space-3);
     }

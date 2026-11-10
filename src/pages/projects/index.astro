@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectRow from "../../components/ProjectRow.astro";
+
+const sortedProjects = (await getCollection("projects"))
+    .filter((project) => !project.data.draft)
+    .sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout
+    title="Projects — Deepkumar Patel"
+    description="Distributed systems and machine learning projects by Deepkumar Patel."
+>
+    <header>
+        <p class="label">Projects</p>
+        <h1>Work</h1>
+        <p class="lead">Systems and models, shipped.</p>
+    </header>
+
+    {
+        sortedProjects.length > 0 ? (
+            <ul class="project-list">
+                {sortedProjects.map((project) => (
+                    <ProjectRow
+                        title={project.data.title}
+                        summary={project.data.summary}
+                        tags={project.data.tags}
+                        year={project.data.year}
+                        href={`/projects/${project.id}`}
+                    />
+                ))}
+            </ul>
+        ) : (
+            <p class="empty">No projects yet.</p>
+        )
+    }
+</BaseLayout>
+
+<style>
+    header h1 {
+        margin-top: 0;
+    }
+
+    .project-list {
+        list-style: none;
+        margin: var(--space-5) 0 0;
+        padding: 0;
+        border-top: 1px solid var(--rule);
+    }
+
+    .empty {
+        color: var(--ink-muted);
+        margin-top: var(--space-3);
+    }
+</style>

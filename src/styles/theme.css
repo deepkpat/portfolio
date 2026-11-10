@@ -122,7 +122,9 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-4) 0; }
   display: inline-block;
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  padding: 0.7em 1.2em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.55em 1em;
   background: var(--ochre-deep);
   color: var(--paper);
   border-radius: 3px;
