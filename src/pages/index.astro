@@ -22,14 +22,14 @@ const year = new Date().getFullYear();
 ---
 
 <BaseLayout
-    title="Deepkumar Patel — Systems / ML"
-    description="Deepkumar Patel designs distributed systems and trains models that run on them."
+    title="Deepkumar Patel"
+    description="Deepkumar Patel builds resilient distributed systems and scalable AI/ML pipelines."
 >
     <header class="hero">
         <p class="label hero-label">Systems / ML</p>
         <h1>Deepkumar Patel</h1>
         <p class="lead">
-            I design distributed systems and train models that run on them.
+            I build resilient distributed systems and scalable AI/ML pipelines.
         </p>
         <nav class="hero-links" aria-label="Primary">
             <a href="https://github.com/deepkpat">GitHub</a>
@@ -72,6 +72,7 @@ const year = new Date().getFullYear();
                         title={post.data.title}
                         summary={post.data.summary ?? post.data.description}
                         date={post.data.date}
+                        tags={post.data.tags}
                         href={`/blog/${post.id}`}
                     />
                 ))}
@@ -87,16 +88,15 @@ const year = new Date().getFullYear();
     <section id="about" class="section" aria-labelledby="about-heading">
         <h2 id="about-heading">About</h2>
         <p>
-            I design distributed systems and train models that run on them.
-            [ABOUT TEXT — replace with two or three sentences in your voice.]
+            I build resilient distributed systems and scalable AI/ML pipelines.
         </p>
     </section>
 
     <section id="contact" class="section" aria-labelledby="contact-heading">
         <h2 id="contact-heading">Contact</h2>
         <p>
-            Open to [roles / collaboration / conversation]. The best way to
-            reach me is at <a href="mailto:you@example.com">you@example.com</a>.
+            Open to collaboration. The best way to reach me is my{" "}
+            <a href="mailto:deepkumarpatel471@gmail.com">email</a>.
         </p>
     </section>
 

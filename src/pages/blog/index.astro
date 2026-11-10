@@ -1,17 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostRow from "../../components/PostRow.astro";
 
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-
-const formatDate = (date: Date) =>
-    date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
 ---
 
 <BaseLayout
@@ -24,17 +18,23 @@ const formatDate = (date: Date) =>
         <p class="lead">Essays, working notes, and the occasional detour.</p>
     </header>
 
-    <ul class="post-list">
-        {posts.map((post) => (
-            <li>
-                <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                <p>{post.data.description}</p>
-                <time datetime={post.data.date.toISOString()}>
-                    {formatDate(post.data.date)}
-                </time>
-            </li>
-        ))}
-    </ul>
+    {
+        posts.length > 0 ? (
+            <ul class="post-list">
+                {posts.map((post) => (
+                    <PostRow
+                        title={post.data.title}
+                        summary={post.data.summary ?? post.data.description}
+                        date={post.data.date}
+                        tags={post.data.tags}
+                        href={`/blog/${post.id}`}
+                    />
+                ))}
+            </ul>
+        ) : (
+            <p class="empty">No posts yet.</p>
+        )
+    }
 </BaseLayout>
 
 <style>
@@ -44,35 +44,13 @@ const formatDate = (date: Date) =>
 
     .post-list {
         list-style: none;
-        padding: 0;
         margin: var(--space-5) 0 0;
+        padding: 0;
         border-top: 1px solid var(--rule);
     }
 
-    .post-list li {
-        display: grid;
-        gap: var(--space-1);
-        padding: var(--space-3) 0;
-        border-bottom: 1px solid var(--rule);
-    }
-
-    .post-list a {
-        font-size: var(--text-lg);
-        text-decoration: none;
-    }
-
-    .post-list a:hover {
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-    }
-
-    .post-list p {
-        margin: 0;
+    .empty {
         color: var(--ink-muted);
-    }
-
-    .post-list time {
-        color: var(--ink-muted);
-        font-size: var(--text-sm);
+        margin-top: var(--space-3);
     }
 </style>

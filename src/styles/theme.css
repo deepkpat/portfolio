@@ -30,7 +30,7 @@
   --space-3: 1.5rem;
   --space-4: 2.5rem;
   --space-5: 4rem;
-  --measure: 66ch;
+  --measure: 64rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

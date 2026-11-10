@@ -3,10 +3,11 @@ interface Props {
     title: string;
     summary?: string;
     date: Date;
+    tags?: string[];
     href: string;
 }
 
-const { title, summary, date, href } = Astro.props;
+const { title, summary, date, tags = [], href } = Astro.props;
 
 const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -17,11 +18,18 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
 <li class="post-row">
     <a class="post-link" href={href}>
-        <time datetime={date.toISOString()}>{formattedDate}</time>
-        <span class="post-body">
+        <div class="post-head">
             <h3>{title}</h3>
-            {summary && <p>{summary}</p>}
-        </span>
+            <time datetime={date.toISOString()}>{formattedDate}</time>
+        </div>
+        {summary && <p class="post-summary">{summary}</p>}
+        {tags.length > 0 && (
+            <ul class="post-tags" aria-label="Tags">
+                {tags.map((tag) => (
+                    <li class="tag">{tag}</li>
+                ))}
+            </ul>
+        )}
     </a>
 </li>
 
@@ -31,9 +39,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     }
 
     .post-link {
-        display: grid;
-        grid-template-columns: 9rem 1fr;
-        gap: var(--space-2);
+        display: block;
         padding: var(--space-3) 0;
         color: var(--ink);
         text-decoration: none;
@@ -43,12 +49,14 @@ const formattedDate = date.toLocaleDateString("en-US", {
         color: var(--ink);
     }
 
-    .post-link time {
-        color: var(--ink-muted);
-        font-size: var(--text-sm);
+    .post-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: baseline;
+        gap: var(--space-2);
     }
 
-    .post-body h3 {
+    .post-head h3 {
         margin: 0;
         font-size: var(--text-h3);
     }
@@ -58,16 +66,36 @@ const formattedDate = date.toLocaleDateString("en-US", {
         text-underline-offset: 0.2em;
     }
 
-    .post-body p {
+    .post-head time {
+        color: var(--ink-muted);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        text-align: right;
+    }
+
+    .post-summary {
         margin: var(--space-1) 0 0;
         color: var(--ink-muted);
         max-width: var(--measure);
     }
 
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-1);
+        list-style: none;
+        margin: var(--space-2) 0 0;
+        padding: 0;
+    }
+
     @media (max-width: 40rem) {
-        .post-link {
+        .post-head {
             grid-template-columns: 1fr;
-            gap: var(--space-1);
+            gap: 0.25rem;
+        }
+
+        .post-head time {
+            text-align: left;
         }
     }
 </style>
