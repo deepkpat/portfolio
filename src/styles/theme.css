@@ -1,6 +1,6 @@
 /* Drafting vellum: Newsreader + JetBrains Mono */
 
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
   /* Palette */
@@ -18,7 +18,7 @@
 
   /* Type scale (fluid) */
   --text-sm:   0.875rem;
-  --text-base: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem); /* ~17 to 19px */
+  --text-base: clamp(1.125rem, 1rem + 0.4vw, 1.25rem); /* ~18 to 20px */
   --text-lg:   clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
   --text-h3:   clamp(1.5rem, 1.25rem + 1.2vw, 2rem);
   --text-h2:   clamp(2rem, 1.5rem + 2.2vw, 2.75rem);
@@ -30,7 +30,7 @@
   --space-3: 1.5rem;
   --space-4: 2.5rem;
   --space-5: 4rem;
-  --measure: 64rem;
+  --measure: 66ch;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -64,6 +64,7 @@ p { margin: 0 0 var(--space-2); max-width: var(--measure); }
 .lead { font-size: var(--text-lg); line-height: 1.5; }
 
 em { font-style: italic; }
+strong { font-weight: 600; }
 
 /* Links */
 a {
