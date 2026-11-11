@@ -2,7 +2,7 @@
 title: "Astro v/s React"
 description: "A blog comparing Astro and React JS"
 date: 2026-11-11
-tags: ["frontend"]
+tags: ["frontend", "ai-assisted"]
 ---
 
 ## Astro vs React: Which Should You Learn, and When Should You Use Each?
