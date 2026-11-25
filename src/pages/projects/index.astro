@@ -13,6 +13,11 @@ const sortedProjects = (await getCollection("projects"))
     description="Distributed systems and machine learning projects by Deepkumar Patel."
 >
     <header>
+        <nav class="nav" aria-label="Breadcrumb">
+            <a href="/" class="back-link">
+                <span aria-hidden="true">&larr;</span> Back to home
+            </a>
+        </nav>
         <p class="label">Projects</p>
         <h1>Work</h1>
         <p class="lead">Systems and models, shipped.</p>
@@ -35,9 +40,34 @@ const sortedProjects = (await getCollection("projects"))
             <p class="empty">No projects yet.</p>
         )
     }
+
+    <footer class="page-footer">
+        <a href="/" class="back-link">
+            <span aria-hidden="true">&larr;</span> Back to home
+        </a>
+    </footer>
 </BaseLayout>
 
 <style>
+    .nav {
+        margin-bottom: var(--space-3);
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--ink-muted);
+        text-decoration: none;
+        transition: color 0.15s ease;
+    }
+
+    .back-link:hover {
+        color: var(--oxblood);
+    }
+
     header h1 {
         margin-top: 0;
     }
@@ -52,5 +82,11 @@ const sortedProjects = (await getCollection("projects"))
     .empty {
         color: var(--ink-muted);
         margin-top: var(--space-3);
+    }
+
+    .page-footer {
+        margin-top: var(--space-5);
+        padding-top: var(--space-2);
+        border-top: 1px solid var(--rule);
     }
 </style>
