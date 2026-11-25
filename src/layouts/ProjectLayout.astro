@@ -1,4 +1,5 @@
 ---
+import type { MarkdownHeading } from "astro";
 import BlogLayout from "./BlogLayout.astro";
 
 interface Props {
@@ -6,9 +7,10 @@ interface Props {
     summary?: string;
     year: number | string;
     tags?: string[];
+    headings?: MarkdownHeading[];
 }
 
-const { title, summary, year, tags = [] } = Astro.props;
+const { title, summary, year, tags = [], headings = [] } = Astro.props;
 ---
 
 <BlogLayout
@@ -19,6 +21,7 @@ const { title, summary, year, tags = [] } = Astro.props;
     tags={tags}
     backHref="/projects"
     backLabel="Back to projects"
+    headings={headings}
 >
     <slot />
 </BlogLayout>

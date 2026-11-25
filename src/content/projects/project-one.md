@@ -19,6 +19,14 @@ the project write-up.
 - The key trade-off you made
 - What you measured
 
+### System Architecture
+
+Details on how services communicate, data serialization, and storage decisions.
+
+### Bottlenecks and Trade-offs
+
+Latency targets, network overhead, and concurrency management.
+
 ## Outcome
 
 Replace with the result. Include a number if you have one.

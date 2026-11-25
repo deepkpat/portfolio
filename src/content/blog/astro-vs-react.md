@@ -61,7 +61,11 @@ Both are readable. The difference is where the code runs and how much JavaScript
 
 Astro is a strong choice when your site is mostly about content. Think of a company blog, a developer documentation site, a portfolio, or a marketing page. In these cases, the content should load fast, and the page doesn't need to behave like an app.
 
+### Performance and Learning Curve
+
 Astro's performance advantage is real. Because it sends little or no JavaScript by default, pages tend to load quickly, which helps user experience and search engine visibility. You also get a gentle learning curve. If you already know HTML, CSS, and a little JavaScript, you can be productive in Astro within a few days.
+
+### Content Collections and Markdown
 
 Astro also handles content well. It has built-in support for Markdown and MDX, and its content collections give you a structured way to manage blog posts, authors, and documentation pages with type safety. For a writer or small team that publishes regularly, this is a big quality-of-life improvement.
 
@@ -69,7 +73,11 @@ Astro also handles content well. It has built-in support for Markdown and MDX, a
 
 React is the better choice when your project is a full application. If users log in, save data, filter large lists, drag and drop items, or interact with the interface constantly, React's model is built for that. Dashboards, social feeds, project management tools, and e-commerce checkouts are all good examples.
 
+### Complex Applications and State
+
 React also has an enormous ecosystem. There are libraries for almost every problem: forms, animations, state management, data fetching, charts, and component kits. There are also many tutorials, Stack Overflow answers, and experienced developers to help when you get stuck. For a beginner, that community is worth a lot.
+
+### Massive Ecosystem and Career Value
 
 From a career perspective, React is also very widely requested in job postings across product companies, startups, and agencies. Learning React gives you transferable skills, because the mental model of components, props, state, and rendering shows up in many frameworks.
 

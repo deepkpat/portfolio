@@ -1,6 +1,8 @@
 ---
 import "katex/dist/katex.min.css";
+import type { MarkdownHeading } from "astro";
 import BaseLayout from "./BaseLayout.astro";
+import TableOfContents from "../components/TableOfContents.astro";
 
 interface Props {
     title: string;
@@ -11,6 +13,7 @@ interface Props {
     tags?: string[];
     backHref?: string;
     backLabel?: string;
+    headings?: MarkdownHeading[];
 }
 
 const {
@@ -22,7 +25,13 @@ const {
     tags = [],
     backHref = "/blog",
     backLabel = "Back to writing",
+    headings = [],
 } = Astro.props;
+
+const filteredHeadings = (headings || []).filter(
+    (h) => h.depth >= 2 && h.depth <= 4,
+);
+const hasHeadings = filteredHeadings.length > 0;
 
 const formattedDate = date?.toLocaleDateString("en-US", {
     year: "numeric",
@@ -31,39 +40,68 @@ const formattedDate = date?.toLocaleDateString("en-US", {
 });
 ---
 
-<BaseLayout title={`${title} — Deepkumar Patel`} description={description}>
-    <article>
-        <header class="post-header">
-            <p class="label">{label}</p>
-            <h1>{title}</h1>
-            {(date || year || tags.length > 0) && (
-                <div class="meta">
-                    {date && (
-                        <time datetime={date.toISOString()}>
-                            {formattedDate}
-                        </time>
-                    )}
-                    {year && <span class="year">{year}</span>}
-                    {tags.length > 0 && (
-                        <ul class="tags" aria-label="Tags">
-                            {tags.map((tag) => (
-                                <li class="tag">{tag}</li>
-                            ))}
-                        </ul>
-                    )}
+<BaseLayout
+    title={`${title} — Deepkumar Patel`}
+    description={description}
+    wide={hasHeadings}
+>
+    <div class:list={["post-layout", { "has-sidebar": hasHeadings }]}>
+        {hasHeadings && (
+            <aside class="post-sidebar" aria-label="Page navigation">
+                <div class="sidebar-sticky">
+                    <a href={backHref} class="sidebar-back-link">
+                        <span aria-hidden="true">&larr;</span> {backLabel}
+                    </a>
+                    <TableOfContents
+                        headings={filteredHeadings}
+                        variant="sidebar"
+                    />
+                </div>
+            </aside>
+        )}
+
+        <article class="post-main">
+            <header class="post-header">
+                <p class="label">{label}</p>
+                <h1>{title}</h1>
+                {(date || year || tags.length > 0) && (
+                    <div class="meta">
+                        {date && (
+                            <time datetime={date.toISOString()}>
+                                {formattedDate}
+                            </time>
+                        )}
+                        {year && <span class="year">{year}</span>}
+                        {tags.length > 0 && (
+                            <ul class="tags" aria-label="Tags">
+                                {tags.map((tag) => (
+                                    <li class="tag">{tag}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )}
+                {description && <p class="lead">{description}</p>}
+            </header>
+
+            {hasHeadings && (
+                <div class="mobile-toc-container">
+                    <TableOfContents
+                        headings={filteredHeadings}
+                        variant="mobile"
+                    />
                 </div>
             )}
-            {description && <p class="lead">{description}</p>}
-        </header>
 
-        <div class="prose">
-            <slot />
-        </div>
+            <div class="prose">
+                <slot />
+            </div>
 
-        <footer class="post-footer">
-            <a href={backHref}>{backLabel}</a>
-        </footer>
-    </article>
+            <footer class="post-footer">
+                <a href={backHref}>{backLabel}</a>
+            </footer>
+        </article>
+    </div>
 </BaseLayout>
 
 <script>
@@ -103,9 +141,80 @@ const formattedDate = date?.toLocaleDateString("en-US", {
 </script>
 
 <style>
-    article {
+    .post-layout {
+        width: 100%;
+    }
+
+    .post-main {
         max-width: var(--measure);
         margin-inline: auto;
+    }
+
+    .post-sidebar {
+        display: none;
+    }
+
+    /* Mobile sticky TOC bar */
+    .mobile-toc-container {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--paper);
+        padding: var(--space-2) 0;
+        margin-bottom: var(--space-4);
+    }
+
+    @media (min-width: 54rem) {
+        .post-layout.has-sidebar {
+            display: grid;
+            grid-template-columns: minmax(12rem, 14.5rem) minmax(
+                    0,
+                    var(--measure)
+                );
+            justify-content: center;
+            column-gap: var(--space-4);
+        }
+
+        .post-layout.has-sidebar .post-main {
+            margin-inline: 0;
+            width: 100%;
+        }
+
+        .post-layout.has-sidebar .post-sidebar {
+            display: block;
+            height: 100%;
+        }
+
+        .post-layout.has-sidebar .mobile-toc-container {
+            display: none;
+        }
+    }
+
+    .sidebar-sticky {
+        position: sticky;
+        top: var(--space-5);
+        max-height: calc(100vh - var(--space-5) - var(--space-3));
+        overflow-y: auto;
+        padding-right: var(--space-2);
+        scrollbar-width: thin;
+        scrollbar-color: var(--rule) transparent;
+    }
+
+    .sidebar-back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--ink-muted);
+        text-decoration: none;
+        margin-bottom: var(--space-4);
+        transition: color 0.15s ease;
+    }
+
+    .sidebar-back-link:hover {
+        color: var(--oxblood);
     }
 
     .post-header {
@@ -157,6 +266,12 @@ const formattedDate = date?.toLocaleDateString("en-US", {
 <style is:global>
     .prose > :first-child {
         margin-top: 0;
+    }
+
+    .prose h2,
+    .prose h3,
+    .prose h4 {
+        scroll-margin-top: 3.5rem;
     }
 
     .prose p,
